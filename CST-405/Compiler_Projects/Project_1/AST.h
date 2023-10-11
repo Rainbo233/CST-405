@@ -1,6 +1,7 @@
+//AST file to imporve the tree from parser
+
 #pragma once
 
-//#include <string.h>
 #include <string>
 #include <iostream>
 #include "IRcode.h"
@@ -8,9 +9,9 @@
 #include "symbolTable.h"
 using namespace std;
 
-//struct string IRType[] = {"+","-","*","/"};
 
-// a Node for a tree
+
+// Nodes for making the tree
 struct Node {
 	int nodetype;
 	string type;
@@ -23,10 +24,10 @@ struct Node {
 	struct Entry *s;
 };
 
-// Binary tree class
+// the binary tree 
 class BinTree {
 public:
-	Node* root = NULL; // the root node
+	Node* root = NULL; 
 	BinTree() {}
 	Node * addNode(string data, Node* left, Node* right);
 	Node * addSym(Entry* entry);
@@ -38,7 +39,7 @@ public:
 
 Node * BinTree::addNode(string data, Node* left, Node* right)
 {
-	//cout<<data<<endl;
+	
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> nodetype = 0;
@@ -63,7 +64,7 @@ Node * BinTree::addSym(Entry* entry)
 
 Node * BinTree::addNum(int num)
 {
-	//cout<<data<<endl;
+	
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> val = std::to_string(num);
@@ -78,21 +79,14 @@ Node * BinTree::addNum(int num)
 void BinTree::printTree(Node* thisNode, int indent)
 {
   if (thisNode != NULL){
-    for(int i = 0; i < indent; i++) {cout << "|     ";}
+    for(int i = 0; i < indent; i++) {cout << " ";}
   }else
     return;
-	/*if(thisNode->nodetype == 1){
-		Node* test = (struct Node *)thisNode;
-  	cout << "|-----"<<test->s->itemName << "\n";
-	}
-	else if(thisNode->nodetype == 2){
-  	cout << "|-----"<<thisNode->data << "\n";
-	}
-	else {*/
-	cout << "|-----"<<thisNode->data << "\n";
-	//}
-	printTree(thisNode->Left,indent + 1);  //recursive call
-	printTree(thisNode->Right,indent + 1); //recursive call
+	
+	cout << ""<<thisNode->data << "\n";
+
+	printTree(thisNode->Left,indent + 1);  
+	printTree(thisNode->Right,indent + 1); 
 }
 
 void BinTree::genIR(Node* thisNode)
@@ -171,8 +165,8 @@ void BinTree::genIR(Node* thisNode)
 
 	}
 	
-	genIR(thisNode->Left);  //recursive call
-	genIR(thisNode->Right); //recursive call
+	genIR(thisNode->Left);  
+	genIR(thisNode->Right); 
 }
 
 bool BinTree::isBinOp(string data){
