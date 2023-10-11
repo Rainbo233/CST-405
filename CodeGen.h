@@ -24,7 +24,7 @@ void closeASMFile(){
 
     ASM << "\n#---\n";
     ASM << "# FINISHED\n\n";
-    //ASM << "li $v0,1 sys call code to end program ";
+    // li $v0,1 sys call code to end program ";
 
     ASM << "li $v0,10 # call code\n";
     ASM << "syscall # system call\n";
