@@ -1,25 +1,6 @@
-/*To do
 
-ParamDecl
-FunctionDecl
-Array Support
-Block{}
-Int, Char, Float
-Read, WriteLn
-Unary Op
-Filling an array using command
-Reconizing -,/
+// Parser file that turns tokens into a binary tree
 
-*/
-
-/*Semeactic To do
-
-convert Char to ascii
-deside if -(char)
-other ERROR - x/0
-convert int to char for WriteLn
-arrayDecl work
-*/
 
 
 %{
@@ -41,7 +22,7 @@ extern FILE* yyin;
 extern FILE* IRfile;
 
 void yyerror(const char* s);
-char currentScope[50]; // global or the name of the function
+char currentScope[50]; // function name that passes through from symbol table
 int semanticCheckPassed;
 %}
 
@@ -53,6 +34,7 @@ int semanticCheckPassed;
 	struct Entry *symbol;
 	int i;
 }
+// list of tokens to identify
 
 %token <string> CHAR INT
 %token <string> ID
@@ -87,14 +69,14 @@ FuncDeclList: FuncDecl              {$$ = $1;}
 
 FuncDecl : Type ID LPAR ParamDeclList RPAR Block {printf("\n FUNCDECL \n");
 												$$ = AST.addNode("Func",AST.addNode($2, NULL, NULL),AST.addNode("FuncInfo",$4,$6));
-												//FINISH nodeType
+											
 }
 ;
 
 ParamDeclList: %empty				{$$ = NULL;}
 			| ParamDecl				{$$ = $1;}
 			| ParamDecl COMMA ParamDeclList {$$ = AST.addNode("ParamDeclList",$1,$3);
-											//FINISH nodeType
+											
 			}
 ;
 
@@ -103,22 +85,22 @@ Block: LCBRA BlockList RCBRA {$$ = $2;}
 
 BlockList: %empty					{$$ = NULL;}
 		| BlockList StmtList		{$$ = AST.addNode("BLockList",$1,$2);
-									//FINISH?
+									
 									}
 		| BlockList VarDecl			{$$ = AST.addNode("BLockList",$1,$2);
-									//FINISH?
+									
 									}
 ;
 
 ParamDecl: Type ID					{printf("\n ParamDecl \n");
 									$$ = AST.addNode($2, NULL, NULL);
-									//FINISH?
+									
 									}
 		| Type ID LBRA RBRA {$$ = AST.addNode($2, NULL, NULL);}
 ;
 
 DeclList:	Decl DeclList	{$$ = AST.addNode("DeclList",$1,$2);
-							  //$$ = $1;
+							
 							}
 	| Decl	{ $$ = $1; }
 	|%empty {$$ = NULL;}
@@ -131,10 +113,10 @@ Decl:	VarDecl { $$ = $1;}
 ;
 
 VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s\n", $2);
-									// Symbol Table
+									// The Symbol Table
 									symTabAccess();
 									int inSymTab = found($2, currentScope);
-									//printf("looking for %s in symtab - found: %d \n", $2, inSymTab);
+									
 									
 									if (inSymTab == 1) {
 										addItem($2, "Var", $1,0, currentScope);
@@ -143,7 +125,7 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 										printf("SEMANTIC ERROR: Var %s is already in the symbol table", $2);
 									showSymTable();
 									
-								  // ---- SEMANTIC ACTIONS by PARSER ----
+								
 								  $$ = AST.addNode($2,NULL, NULL);
 								  printf("----------> %s", $$->Left);
 
@@ -156,7 +138,7 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 									printf("|%s", n);
 								}
 								$$ = AST.addNode($2,NULL, NULL);
-								//Add array indicator
+							
 								}
 ;
 
@@ -175,19 +157,19 @@ Stmt:	SEMICOLON	{}
 	| Expr SEMICOLON	{$$ = $1;}
 	| WRITE Expr SEMICOLON{$$ = AST.addNode("WRITE",$2,$2);};
 	| RETURN Expr SEMICOLON{$$ = AST.addNode("Return",$2,NULL);
-							//FINISH node and return type
+							
 							}
 	| WRITELN SEMICOLON {$$ = AST.addNode("WRITELN",NULL,NULL);
-							//FINISH nodeType
+							
 							}
 ;
 
 Expr: Primary 		{$$ = $1;}
 	| ID {$$ = AST.addNode($1, NULL, NULL); printf("\n RECOGNIZED RULE: Simplest expression: %s \n", $1); }
 	| ID EQ Expr 	{ printf("\n RECOGNIZED RULE: Assignment statement\n"); 
-					// ---- SEMANTIC ACTIONS by PARSER ----
+					
 					  $$ = AST.addNode("=",AST.addNode($1, NULL, NULL),$3);
-					// Semantic ananysic
+					
 					if(found($1, currentScope) != 1){
 						printf("Semantic error: Variable %s has not been declared in scope %s \n", $1, currentScope);
 						semanticCheckPassed = 0;
@@ -207,14 +189,9 @@ Expr: Primary 		{$$ = $1;}
 
 					if (semanticCheckPassed == 1){
 						printf("\n\n >IR code is emitted!<\n\n");
-						//emitAssignment($1,$3->data);
+				
 					}
-					/*
-					if(testVarDeclaration($1) == 1)
-						if(testVarDeclaration($3) == 1)
-							if(checkType($1) == checkType($3))
-								//emitIRcode(IRfile, IRAssignment($1,$3));
-					*/
+				
 				}
 	| Expr MULT Expr	{printf("\n RECOGNIZED RULE: MULT statement\n");
 				$$ = AST.addNode("*",$1,$3);
@@ -247,13 +224,13 @@ Expr: Primary 		{$$ = $1;}
 				$$ = AST.addNode("+",AST.addNum($1),AST.addNum($3));
 				}	
 	| ID EQ Expr 	{ printf("\n RECOGNIZED RULE: Assignment statement\n"); 
-					   // ---- SEMANTIC ACTIONS by PARSER ----
+					  
 					   char str[50];
 					   sprintf(str, "%d", $3); 
 					   $$ = AST.addNode("=",AST.addNode($1, NULL, NULL), $3);
 					}
-	| ID LBRA NUMBER RBRA EQ Expr {//Get Array BS in here
-								//FINISH Array
+	| ID LBRA NUMBER RBRA EQ Expr {
+								
 								$$ = AST.addNode("=",NULL,NULL);
 								}
 ;
@@ -263,10 +240,10 @@ Primary: ID						{$$ = AST.addNode($1, NULL, NULL);
 								}
 		| NUMBER				{$$ = AST.addNum($1);}
 		| ID LPAR ExprList RPAR		{$$ = AST.addNode("FuncCall",AST.addNode($1, NULL, NULL),$3);
-									//FINISH NodeType
+									
 									}
 		| ID LBRA NUMBER RBRA   {$$ = AST.addNode("Array",NULL,NULL);
-								//FINISH Array
+								
 								}
 ;
 
@@ -274,18 +251,14 @@ Primary: ID						{$$ = AST.addNode($1, NULL, NULL);
 ExprList: %empty				{$$ = NULL;}
 			| Expr				{$$ = $1;}
 			| Expr COMMA ExprList {$$ = AST.addNode("ExprList",$1,$3);
-											//FINISH
+										
 			}
 ;
 %%
 
 int main(int argc, char**argv)
 {
-/*
-	#ifdef YYDEBUG
-		yydebug = 1;
-	#endif
-*/
+
 	printf("\n\n##### COMPILER STARTED #####\n\n");
 	
 	if (argc > 1){
