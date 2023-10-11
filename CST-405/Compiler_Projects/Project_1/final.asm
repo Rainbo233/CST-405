@@ -2,10 +2,11 @@
 main:
 #---
 
+li $t1, 100
 li $t2, 25
 
 add $t4, $t1, $t2
-add $t5, $t4, 4
+add $t5, $t4, 2
 move $t3, $t5
 
 li $v0,1
