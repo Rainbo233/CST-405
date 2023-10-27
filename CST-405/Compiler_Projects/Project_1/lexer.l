@@ -1,5 +1,4 @@
-/*Update to new lexer
-[], Char, Float, -, /, unary, Read, WriteLN, {}
+/*Updated the lexer
 */
 
 %option noyywrap

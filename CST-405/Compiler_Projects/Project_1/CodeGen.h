@@ -1,13 +1,5 @@
-/*
-Arrays
-local vars
-functions
-Read
-WriteLn
 
-
-*/
-
+// file to generate the assembly code in .asm file and show mips in terminal
 
 #pragma once
 #include <string>
@@ -32,8 +24,8 @@ void closeASMFile(){
 
     ASM << "\n#---\n";
     ASM << "# FINISHED\n\n";
-    //ASM << "li $v0,1 # call code for terminate\n";
-    //ASM << "syscall # system call\n";
+    // li $v0,1 sys call code to end program ";
+
     ASM << "li $v0,10 # call code\n";
     ASM << "syscall # system call\n";
     ASM << ".end main\n";
@@ -90,7 +82,7 @@ void ASMWrite(string l){
     ASM << "move $a0, " << getRegester(p1) << "\n";
     ASM << "syscall\n";
 }
-
+ 
 void ASMGen(){
     ifstream IR;
     IR.open ("IRcode.txt");

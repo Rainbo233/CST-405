@@ -1,3 +1,5 @@
+// assembly file  which explains what each step of the mips code from the source code in the terminal
+
 File * MIPScode;
 
 void initAssemblyFile(){
