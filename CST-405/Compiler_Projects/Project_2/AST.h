@@ -1,16 +1,18 @@
+//AST file to imporve the tree from parser
+
+
 #pragma once
 
-//#include <string.h>
+
 #include <string>
 #include <iostream>
 #include "IRcode.h"
-//#include "IRcode.txt"
 #include "symbolTable.h"
 using namespace std;
 
 int scope = 0;
 
-//struct string IRType[] = {"+","-","*","/"};
+
 
 // a Node for a tree
 struct Node {
@@ -28,7 +30,7 @@ struct Node {
 // Binary tree class
 class BinTree {
 public:
-	Node* root = NULL; // the root node
+	Node* root = NULL; 
 	BinTree() {}
 	Node * addNode(string data, Node* left, Node* right);
 	Node * addSym(Entry* entry);
