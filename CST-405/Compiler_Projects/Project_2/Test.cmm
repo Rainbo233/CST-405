@@ -1,0 +1,33 @@
+int test(int i, int c) {
+  int x;
+  x = i + c;
+  return x;
+}
+
+int main(){
+    int x;
+    int y;
+    int z[5];
+    int i;
+    int j;
+
+    x = 4;
+    y = 4;
+    y = x / y - 2;
+    z[0] = 0;
+    z[1] = 1;
+    z[2] = 2;
+    z[3] = 3;
+    z[4] = 5;
+    i = z[1] + z[2] + z[4];
+    j = test(x, y);
+
+    write x;
+    writeLn;
+    write y;
+    writeLn;
+    write i;
+    writeLn;
+    writeLn;
+    write j;
+}
