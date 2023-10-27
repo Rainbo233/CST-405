@@ -1,12 +1,5 @@
-/*
-Arrays
-local vars
-functions
-Read
-WriteLn
+// file to generate the assembly code in .asm file and show mips in terminal
 
-
-*/
 
 
 #pragma once
