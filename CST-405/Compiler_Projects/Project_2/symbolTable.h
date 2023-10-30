@@ -1,10 +1,4 @@
-/*
-TODO
-
-Funtion support - Linked lisk/2D array
-local vars 
-
-*/
+// symbol table which gathers the tokens and stores them to determine what each part of the souce code means wether its a identifer, int, char, function, etc
 
 #pragma once
 //Symbol table header
