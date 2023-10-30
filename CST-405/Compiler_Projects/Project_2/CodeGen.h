@@ -1,7 +1,6 @@
 // file to generate the assembly code in .asm file and show mips in terminal
 
 
-
 #pragma once
 #include <string>
 #include <iostream>
@@ -25,6 +24,7 @@ void closeASMFile(){
 
     ASM << "\n#---\n";
     ASM << "# FINISHED\n\n";
+  
     ASM << "li $v0,10 # call code\n";
     ASM << "syscall # system call\n";
     ASM << ".end main\n";

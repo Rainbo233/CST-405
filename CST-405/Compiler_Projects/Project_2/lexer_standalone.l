@@ -70,7 +70,11 @@ ws          {delim}+
 
 int main(int argc, char**argv)
 {
-
+/*
+	#ifdef YYDEBUG
+		yydebug = 1;
+	#endif
+*/
 	printf("\n\n##### COMPILER STARTED #####\n\n");
 	
 	if (argc > 1){

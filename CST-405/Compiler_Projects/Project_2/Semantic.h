@@ -1,4 +1,6 @@
+
 // checks to make sure the functions in parser are correct like strings and varibles are correct
+
 
 #include <sstream>
 #pragma once
@@ -10,7 +12,7 @@ using namespace std;
 string cBS(char* c){
 
     char* cstr = c;
-    string str(cstr);
+    std::string str(cstr);
     return cstr;
     
 }

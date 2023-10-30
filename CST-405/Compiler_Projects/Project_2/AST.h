@@ -30,7 +30,7 @@ struct Node {
 // Binary tree class
 class BinTree {
 public:
-	Node* root = NULL; 
+	Node* root = NULL; // the root node
 	BinTree() {}
 	Node * addNode(string data, Node* left, Node* right);
 	Node * addSym(Entry* entry);
@@ -42,7 +42,7 @@ public:
 
 Node * BinTree::addNode(string data, Node* left, Node* right)
 {
-
+	
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> nodetype = 0;
@@ -67,7 +67,7 @@ Node * BinTree::addSym(Entry* entry)
 
 Node * BinTree::addNum(int num)
 {
-	
+
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> val = std::to_string(num);
@@ -85,7 +85,9 @@ void BinTree::printTree(Node* thisNode, int indent)
     for(int i = 0; i < indent; i++) {cout << "|     ";}
   }else
     return;
+	
 	cout << "|-----"<<thisNode->data << "\n";
+
 	printTree(thisNode->Left,indent + 1);  
 	printTree(thisNode->Right,indent + 1); 
 }
@@ -121,12 +123,13 @@ void BinTree::genIR(Node* thisNode)
 				if(!isBinOp(thisNode->Left->Right->data))
 				{	
 					if(thisNode->Left->Right->data == "FuncCall"){
+				
 						int s = getScope(thisNode->Left->Right->Left->data);
 						int paramNum = getParamNum(s);
 						if(paramNum == 2){
 						int thisID1 = findID(const_cast<char*>(thisNode->Left->Right->Right->Left->data.c_str()), scope);
 						int thisID2 = findID(const_cast<char*>(thisNode->Left->Right->Right->Right->data.c_str()), scope);
-						
+					
 						IRJalInput(0, thisID1);
 						IRJalInput(1, thisID2);
 						}
@@ -200,7 +203,7 @@ void BinTree::genIR(Node* thisNode)
 	}
 	
 	genIR(thisNode->Left);  
-	genIR(thisNode->Right);  
+	genIR(thisNode->Right); 
 }
 
 bool BinTree::isBinOp(string data){

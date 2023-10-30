@@ -1,6 +1,7 @@
 // Parser file that turns tokens into a binary tree
 
 
+
 %{
 
 #include <stdio.h>
@@ -79,7 +80,6 @@ FuncDecl : Type ID LPAR ParamDeclList RPAR Block {printf("\n FUNCDECL \n");
 												addFunc($2, $1);
 												showFuncTable();
 
-											
 }
 ;
 
@@ -127,7 +127,6 @@ Decl:	VarDecl { $$ = $1;}
 ;
 
 VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s\n", $2);
-									// Symbol Table
 									symTabAccess();
 									int inSymTab = found($2, 0);
 									
@@ -138,7 +137,6 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 										printf("SEMANTIC ERROR: Var %s is already in the symbol table", $2);
 									showSymTable();
 									
-								 
 								  $$ = AST.addNode($2,NULL, NULL);
 								  printf("----------> %s", $$->Left);
 
@@ -170,8 +168,8 @@ StmtList:	Stmt          {$$ = $1;}
 Stmt:	SEMICOLON	{}
 	| Primary EQ Expr SEMICOLON 	{ printf("\n RECOGNIZED RULE: prime=Expr statement\n"); 
 					cout << "\n\nEquals\n" << $3 << "\n";
-
 					  $$ = AST.addNode("=",$1,$3);
+					
 
 					if(found($3->data, 0) != 1){
 						printf("Semantic error: Variable %s has not been declared in scope %s \n", $3, currentScope);
@@ -179,12 +177,14 @@ Stmt:	SEMICOLON	{}
 					}
 
 					printf("\nChecking types: \n");
-				
+					
 				}
 	| WRITE Expr SEMICOLON{$$ = AST.addNode("WRITE",$2,$2);};
 	| RETURN Expr SEMICOLON{$$ = AST.addNode("RETURN",$2,NULL);
+							
 							}
 	| WRITELN SEMICOLON {$$ = AST.addNode("WRITELN",NULL,NULL);
+							
 							}
 ;
 
@@ -227,6 +227,7 @@ Primary: ID						{$$ = AST.addNode($1, NULL, NULL);
 								}
 		| NUMBER				{$$ = AST.addNum($1);}
 		| ID LPAR ExprList RPAR		{$$ = AST.addNode("FuncCall",AST.addNode($1, NULL, NULL),$3);
+									
 									}
 		| ID LBRA NUMBER RBRA   {
 								cout << ">> ID[]\n";

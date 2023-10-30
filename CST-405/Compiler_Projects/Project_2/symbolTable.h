@@ -1,7 +1,7 @@
 // symbol table which gathers the tokens and stores them to determine what each part of the souce code means wether its a identifer, int, char, function, etc
 
+
 #pragma once
-//Symbol table header
 #include <string.h>
 #include <string>
 #include <iostream>
@@ -12,12 +12,13 @@ using namespace std;
 FILE* IRcode;
 
 
+
 struct Entry
 {
 	int itemID;
 	char itemName[50];  //the name of the identifier
-	char itemKind[8];  //function or variable?
-	char itemType[8];  // Is it int char
+	char itemKind[8];  // function or variable?
+	char itemType[8];  // int, char?
 	int arrayLength;
 	char scope[50];     // the function
 	int isParam = 0;
@@ -141,11 +142,11 @@ void moveTable(){
 
 
 int found(string itemName, int scope){
-
+	
 	for(int i=0; i<100; i++){
 		int str1 = (symTable[scope][i].itemName == itemName);
 		if( str1 == 0){
-			return 1; // found the ID in the table
+			return 1; 
 		}
 	}
 	return 0;
@@ -210,7 +211,7 @@ int getParamNum(int scope){
 int compareTypes(string itemName1, string itemName2, char scope[50]){
 	printf("\n-------------------------");
 	printf("\n Compare Types: %s %s %s \n", itemName1, itemName2, scope);
-
+	
 }
 
 

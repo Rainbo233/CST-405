@@ -1,6 +1,7 @@
 // ir code file to generate the ir source code to Ircode.txt
 
 
+
 #pragma once
 #include <string>
 #include <iostream>
@@ -22,7 +23,7 @@ void varEqVar(int id1, int id2){
     string tId1 = "T" + to_string(id1 + 1);
     string tId2 = "T" + to_string(id2 + 1);
     myfile << tId1 << " = " << tId2 << "\n";
-   
+ 
 }
 
 string setParReg(int i){
@@ -108,16 +109,17 @@ void optimizeIR()
     
     
 
-  
     const int linesize = 100;
     char line[linesize];
     int linecounter = 50; 
     bool flag[linecounter];
     int counter = 0;
     
+   
 
     char lines[linecounter][linesize];
 
+   
     char remainder1[linesize];
     char remainder2[linesize];
     char newstring[linesize];
@@ -125,14 +127,18 @@ void optimizeIR()
     int value1;
     int value2;
 
+
     int count;
     char linesave[100];
 
+
     char elimvar[2];
 
+  
     int maxnumsize = 10;
     
 
+   
     while (ifs.getline(line, linesize, '\n'))
     {
         for (int i = 0; i < linecounter; i++)
@@ -146,26 +152,31 @@ void optimizeIR()
         counter++;
     }
 
+ 
     counter = 0;
     for (int i = 0; i < linecounter; i++)
     {
+      
         if (isdigit(lines[i][5]))
         {
+          
             elimvar[0] = lines[i][0];
             elimvar[1] = lines[i][1];
             
-     
+          
             for (int j = 5; j < linesize; j++)
             {
                 remainder1[j] = lines[i][j];
             }
 
+           
             for (int j = i+1; j < linecounter; j++)
             {
                 for (int k = 0; k < linesize; k++)
                 {
                     if(lines[j][k] == elimvar[0] && lines[j][k+1] == elimvar[1])
                     {
+                    
                         for (int l = k; l < linesize; l++)
                         {
                             lines[j][l + maxnumsize] = lines[j][l];
@@ -187,7 +198,7 @@ void optimizeIR()
 
 
 
-
+   
     for (int i = 0; i < linecounter; i++)
     {
         for (int j = 0; i < linesize; i++)
@@ -199,26 +210,32 @@ void optimizeIR()
         }
     }
     
-
+   
     for (int i = 0; i < linecounter; i++)
     {
+       
        
         if (flag[i] == flag[i + 1])
         {
             
 
+          
             if (isdigit(lines[i][10]) && isdigit(lines[i + 1][10]))
             {
+               
                 for (int j = 10; j < linesize; j++)
                 {
                     remainder1[j] = lines[i][j];
                     remainder2[j] = lines[i + 1][j];
                 }
+               
                 value1 = atoi(remainder1);
                 value2 = atoi(remainder2);
 
+              
                 value1 = value1 + value2;
 
+              
                 sprintf(newstring, "%d", value1);
 
                 for (int j = 10; j < linesize; j++)
@@ -233,10 +250,11 @@ void optimizeIR()
             }
         }
         
+      
         flag[i] = 0;
     }
 
-
+    
     for (int i = 0; i < linecounter; i++)
     {
         for (int j = 0; i < linesize; i++)
@@ -273,13 +291,15 @@ void optimizeIR()
                     {
                         for (int k = 0; k < linesize; k++)
                         {
-                            
+                        
                             lines[j][k] = ' ';
                         }
                     }
 
+                 
                     linesave[10] = '+';
 
+                   
                     for (int j = i; j < linecounter; j++)
                     {
 
@@ -293,28 +313,32 @@ void optimizeIR()
     }
 
 
- 
- 
+   
     counter = 0;
     for (int i = 0; i < linecounter; i++)
     {
+        
         elimvar[0] = lines[i][0];
         elimvar[1] = lines[i][1];
 
+        
         for (int j = 0; j < linecounter; j++)
         {
             if (lines[i][j] == elimvar[0] && lines[i][j+1] == elimvar[1])
             {
+             
                 counter++;
             }
         }
 
         if (counter > 1)
         {
+           
             counter = 0;
         }
         else if (counter == 1)
         {
+            
             for (int j = 0; j < linesize; j++)
             {
                 lines[i][j] = ' ';
@@ -323,6 +347,7 @@ void optimizeIR()
         }
     }
 
+    
     ifs.close();
     
     openIRFile();
