@@ -115,7 +115,6 @@ ParamDecl: Type ID					{printf("\n ParamDecl \n");
 ;
 
 DeclList:	Decl DeclList	{$$ = AST.addNode("DeclList",$1,$2);
-							  //$$ = $1;
 							}
 	| Decl	{ $$ = $1; }
 	|%empty {$$ = NULL;}
@@ -131,7 +130,6 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 									// Symbol Table
 									symTabAccess();
 									int inSymTab = found($2, 0);
-									//printf("looking for %s in symtab - found: %d \n", $2, inSymTab);
 									
 									if (inSymTab == 1) {
 										addItem($2, "Var", $1,0, currentScope);
@@ -155,7 +153,6 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 								}
 								showSymTable();
 								$$ = AST.addNode($2,NULL, NULL);
-								//Add array indicator
 								}
 ;
 
@@ -190,21 +187,19 @@ Stmt:	SEMICOLON	{}
 
 					if (semanticCheckPassed == 1){
 						printf("\n\n >IR code is emitted!<\n\n");
-						//emitAssignment($1,$3->data);
+						
 					}
 					
 					if(testVarDeclaration($1) == 1)
 						if(testVarDeclaration($3) == 1)
 							if(checkType($1) == checkType($3))
-								//emitIRcode(IRfile, IRAssignment($1,$3));
+								
 					*/
 				}
 	| WRITE Expr SEMICOLON{$$ = AST.addNode("WRITE",$2,$2);};
 	| RETURN Expr SEMICOLON{$$ = AST.addNode("RETURN",$2,NULL);
-							//FINISH node and return type
 							}
 	| WRITELN SEMICOLON {$$ = AST.addNode("WRITELN",NULL,NULL);
-							//FINISH nodeType
 							}
 ;
 
@@ -247,7 +242,6 @@ Primary: ID						{$$ = AST.addNode($1, NULL, NULL);
 								}
 		| NUMBER				{$$ = AST.addNum($1);}
 		| ID LPAR ExprList RPAR		{$$ = AST.addNode("FuncCall",AST.addNode($1, NULL, NULL),$3);
-									//FINISH NodeType
 									}
 		| ID LBRA NUMBER RBRA   {
 								cout << ">> ID[]\n";
