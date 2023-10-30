@@ -1,3 +1,5 @@
+// checks to make sure the functions in parser are correct like strings and varibles are correct
+
 #include <sstream>
 #pragma once
 #include <string.h>
