@@ -1,25 +1,4 @@
-/*To do
-
-ParamDecl
-FunctionDecl
-Array Support
-Block{}
-Int, Char, Float
-Read, WriteLn
-Unary Op
-Filling an array using command
-Reconizing -,/
-
-*/
-
-/*Semeactic To do
-
-convert Char to ascii
-deside if -(char)
-other ERROR - x/0
-convert int to char for WriteLn
-arrayDecl work
-*/
+// Parser file that turns tokens into a binary tree
 
 
 %{
