@@ -79,14 +79,13 @@ FuncDecl : Type ID LPAR ParamDeclList RPAR Block {printf("\n FUNCDECL \n");
 												addFunc($2, $1);
 												showFuncTable();
 
-												//FINISH nodeType
+											
 }
 ;
 
 ParamDeclList: %empty				{$$ = NULL;}
 			| ParamDecl				{$$ = $1;}
 			| ParamDecl COMMA ParamDeclList {$$ = AST.addNode("ParamDeclList",$1,$3);
-											//FINISH nodeType
 			}
 ;
 
@@ -95,10 +94,8 @@ Block: LCBRA BlockList RCBRA {$$ = $2;}
 
 BlockList: %empty					{$$ = NULL;}
 		| BlockList StmtList		{$$ = AST.addNode("BLockList",$1,$2);
-									//FINISH?
 									}
 		| BlockList VarDecl			{$$ = AST.addNode("BLockList",$1,$2);
-									//FINISH?
 									}
 ;
 
@@ -106,7 +103,6 @@ ParamDecl: Type ID					{printf("\n ParamDecl \n");
 									$$ = AST.addNode($2, NULL, NULL);
 									addParam($2, $1, 1);
 									showSymTable();
-									//FINISH?
 									}
 		| Type ID LBRA NUMBER RBRA {$$ = AST.addNode($2, NULL, NULL);
 									for (int x = 0; x < $4; x++){
@@ -144,7 +140,7 @@ VarDecl:	Type ID SEMICOLON	{ printf("\n RECOGNIZED RULE: Variable declaration %s
 										printf("SEMANTIC ERROR: Var %s is already in the symbol table", $2);
 									showSymTable();
 									
-								  // ---- SEMANTIC ACTIONS by PARSER ----
+								 
 								  $$ = AST.addNode($2,NULL, NULL);
 								  printf("----------> %s", $$->Left);
 
@@ -177,13 +173,8 @@ StmtList:	Stmt          {$$ = $1;}
 Stmt:	SEMICOLON	{}
 	| Primary EQ Expr SEMICOLON 	{ printf("\n RECOGNIZED RULE: prime=Expr statement\n"); 
 					cout << "\n\nEquals\n" << $3 << "\n";
-					// ---- SEMANTIC ACTIONS by PARSER ----
+
 					  $$ = AST.addNode("=",$1,$3);
-					// Semantic ananysic
-					/*if(found($1, 0) != 1){
-						printf("Semantic error: Variable %s has not been declared in scope %s \n", $1, currentScope);
-						semanticCheckPassed = 0;
-					}*/
 
 					if(found($3->data, 0) != 1){
 						printf("Semantic error: Variable %s has not been declared in scope %s \n", $3, currentScope);
@@ -269,18 +260,14 @@ Primary: ID						{$$ = AST.addNode($1, NULL, NULL);
 ExprList: %empty				{$$ = NULL;}
 			| Expr				{$$ = $1;}
 			| Expr COMMA ExprList {$$ = AST.addNode("ExprList",$1,$3);
-											//FINISH
+											
 			}
 ;
 %%
 
 int main(int argc, char**argv)
 {
-/*
-	#ifdef YYDEBUG
-		yydebug = 1;
-	#endif
-*/
+
 	printf("\n\n##### COMPILER STARTED #####\n\n");
 	
 	if (argc > 1){
