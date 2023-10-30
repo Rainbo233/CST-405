@@ -294,9 +294,6 @@ void optimizeIR()
 
 
  
-
-
-    
  
     counter = 0;
     for (int i = 0; i < linecounter; i++)
