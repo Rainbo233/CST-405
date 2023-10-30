@@ -179,22 +179,7 @@ Stmt:	SEMICOLON	{}
 					}
 
 					printf("\nChecking types: \n");
-					/*int typeMatch = compareTypes ($1, $3->data, currentScope);
-					if (typeMatch == 0){
-						printf("Semantic error: Type mismatch for variables %s and %s \n", $1, $3);
-						semanticCheckPassed = 0;
-					}
-
-					if (semanticCheckPassed == 1){
-						printf("\n\n >IR code is emitted!<\n\n");
-						
-					}
-					
-					if(testVarDeclaration($1) == 1)
-						if(testVarDeclaration($3) == 1)
-							if(checkType($1) == checkType($3))
-								
-					*/
+				
 				}
 	| WRITE Expr SEMICOLON{$$ = AST.addNode("WRITE",$2,$2);};
 	| RETURN Expr SEMICOLON{$$ = AST.addNode("RETURN",$2,NULL);
