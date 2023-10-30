@@ -42,7 +42,7 @@ public:
 
 Node * BinTree::addNode(string data, Node* left, Node* right)
 {
-	//cout<<data<<endl;
+
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> nodetype = 0;
@@ -67,7 +67,7 @@ Node * BinTree::addSym(Entry* entry)
 
 Node * BinTree::addNum(int num)
 {
-	//cout<<data<<endl;
+	
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> val = std::to_string(num);
@@ -86,8 +86,8 @@ void BinTree::printTree(Node* thisNode, int indent)
   }else
     return;
 	cout << "|-----"<<thisNode->data << "\n";
-	printTree(thisNode->Left,indent + 1);  // Recursive 
-	printTree(thisNode->Right,indent + 1); // Recursive 
+	printTree(thisNode->Left,indent + 1);  
+	printTree(thisNode->Right,indent + 1); 
 }
 
 void BinTree::genIR(Node* thisNode)
@@ -199,8 +199,8 @@ void BinTree::genIR(Node* thisNode)
 
 	}
 	
-	genIR(thisNode->Left);  // Recursive 
-	genIR(thisNode->Right); // Recursive 
+	genIR(thisNode->Left);  
+	genIR(thisNode->Right);  
 }
 
 bool BinTree::isBinOp(string data){
