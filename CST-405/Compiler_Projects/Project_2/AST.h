@@ -1,16 +1,18 @@
+//AST file to imporve the tree from parser
+
+
 #pragma once
 
-//#include <string.h>
+
 #include <string>
 #include <iostream>
 #include "IRcode.h"
-//#include "IRcode.txt"
 #include "symbolTable.h"
 using namespace std;
 
 int scope = 0;
 
-//struct string IRType[] = {"+","-","*","/"};
+
 
 // a Node for a tree
 struct Node {
@@ -40,7 +42,7 @@ public:
 
 Node * BinTree::addNode(string data, Node* left, Node* right)
 {
-	//cout<<data<<endl;
+	
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> nodetype = 0;
@@ -65,7 +67,7 @@ Node * BinTree::addSym(Entry* entry)
 
 Node * BinTree::addNum(int num)
 {
-	//cout<<data<<endl;
+
 	Node *addedNode = new Node;
 	root = addedNode;
 	root -> val = std::to_string(num);
@@ -83,9 +85,11 @@ void BinTree::printTree(Node* thisNode, int indent)
     for(int i = 0; i < indent; i++) {cout << "|     ";}
   }else
     return;
+	
 	cout << "|-----"<<thisNode->data << "\n";
-	printTree(thisNode->Left,indent + 1);  // Recursive 
-	printTree(thisNode->Right,indent + 1); // Recursive 
+
+	printTree(thisNode->Left,indent + 1);  
+	printTree(thisNode->Right,indent + 1); 
 }
 
 void BinTree::genIR(Node* thisNode)
@@ -119,12 +123,13 @@ void BinTree::genIR(Node* thisNode)
 				if(!isBinOp(thisNode->Left->Right->data))
 				{	
 					if(thisNode->Left->Right->data == "FuncCall"){
+				
 						int s = getScope(thisNode->Left->Right->Left->data);
 						int paramNum = getParamNum(s);
 						if(paramNum == 2){
 						int thisID1 = findID(const_cast<char*>(thisNode->Left->Right->Right->Left->data.c_str()), scope);
 						int thisID2 = findID(const_cast<char*>(thisNode->Left->Right->Right->Right->data.c_str()), scope);
-						
+					
 						IRJalInput(0, thisID1);
 						IRJalInput(1, thisID2);
 						}
@@ -197,8 +202,8 @@ void BinTree::genIR(Node* thisNode)
 
 	}
 	
-	genIR(thisNode->Left);  // Recursive 
-	genIR(thisNode->Right); // Recursive 
+	genIR(thisNode->Left);  
+	genIR(thisNode->Right); 
 }
 
 bool BinTree::isBinOp(string data){
