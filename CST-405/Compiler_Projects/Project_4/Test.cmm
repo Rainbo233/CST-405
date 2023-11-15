@@ -1,0 +1,16 @@
+int main(){
+  int x;
+  int y;
+  int z;
+  x = 15;
+  y = 12;
+  z = 19;
+  if(x >= 10){
+    write x;
+    if(y <= 10){
+      write y;
+    }
+  }else{
+    write z;
+  }
+}

@@ -1,0 +1,21 @@
+!LargestVar,7
+
+main:
+T1 = 15
+T2 = 12
+T3 = 19
+bge T1, 10, if0
+b ifEnd0
+if0:
+WRITE T1
+ble T2, 10, if0R1
+b ifEnd0R1
+if0R1:
+WRITE T2
+b elseEnd0R1
+ifEnd0R1:
+b elseEnd0
+ifEnd0:
+WRITE T3
+elseEnd0R1:
+elseEnd0:
