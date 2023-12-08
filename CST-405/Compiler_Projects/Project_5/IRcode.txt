@@ -1,0 +1,28 @@
+
+addValue:
+T1 = a0
+T2 = a1
+
+s0 = T2 + T1
+T3 = s0
+RETURN T3
+
+
+main:
+T4 = 20
+T5 = -5
+bgt T4, 0, if0
+b ifEnd0
+if0:
+a0 = T4
+a1 = T5
+jal addValue
+T7 = v0
+!"result:"
+WRITE out_string0
+WRITE T7
+b elseEnd0
+ifEnd0:
+!"NoChange"
+WRITE out_string1
+elseEnd0:

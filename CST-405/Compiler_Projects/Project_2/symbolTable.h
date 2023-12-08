@@ -1,13 +1,7 @@
-/*
-TODO
+// symbol table which gathers the tokens and stores them to determine what each part of the souce code means wether its a identifer, int, char, function, etc
 
-Funtion support - Linked lisk/2D array
-local vars 
-
-*/
 
 #pragma once
-//Symbol table header
 #include <string.h>
 #include <string>
 #include <iostream>
@@ -17,17 +11,16 @@ using namespace std;
 
 FILE* IRcode;
 
-// This is a very simplistic implementation of a symbol table
-// You will use this as reference and build a much more robust one
+
 
 struct Entry
 {
 	int itemID;
 	char itemName[50];  //the name of the identifier
-	char itemKind[8];  //is it a function or a variable?
-	char itemType[8];  // Is it int, char, etc.?
+	char itemKind[8];  // function or variable?
+	char itemType[8];  // int, char?
 	int arrayLength;
-	char scope[50];     // global, or the name of the function
+	char scope[50];     // the function
 	int isParam = 0;
 };
 
@@ -52,7 +45,6 @@ void addItem(char inName[50], char itemKind[8], char itemType[8], int arrayLengt
 	printf("\n Another one: %s\n", scope);
 	
 
-		// what about scope? should you add scope to this function?
 		tempSymTable[tempSymIndex].itemID = symTabIndex;
 		strcpy(tempSymTable[tempSymIndex].itemName, inName);
 		strcpy(tempSymTable[tempSymIndex].itemKind, itemKind);
@@ -86,31 +78,7 @@ int getScope(string n){
 	cout << "\n\nNO SCOPE FOUND FOR " << n << "!\n\n";
 	return 0;
 }
-/*
-void addItem(char inName[50], char itemKind[8], char itemType[8], int arrayLength, char scope[50]){
-	scope = "TempScope";
-	printf("\n Another one: %s\n", scope);
-	
 
-		// what about scope? should you add scope to this function?
-		symTabItems[symTabIndex].itemID = symTabIndex;
-		strcpy(symTabItems[symTabIndex].itemName, inName);
-		strcpy(symTabItems[symTabIndex].itemKind, itemKind);
-		strcpy(symTabItems[symTabIndex].itemType, itemType);
-		symTabItems[symTabIndex].arrayLength = arrayLength;
-		strcpy(symTabItems[symTabIndex].scope, scope);
-		symTabIndex++;
-	
-}*/
-/*
-Entry* insert(string item) {
-	printf("\n WHAT IS THIS: %s\n", item);
-  	// insert symbol into the
-  	Entry *newEntry = new Entry;
-	newEntry->itemName = item;
-	return newEntry;
-}
-*/
 void showTempSymTable(){
 	printf("itemName    itemType    Param\n");
 	printf("-----------------------------------------------------------------------\n");
@@ -174,14 +142,11 @@ void moveTable(){
 
 
 int found(string itemName, int scope){
-	// Lookup an identifier in the symbol table
-	// what about scope?
-	// return TRUE or FALSE
-	// Later on, you may want to return additional information
+	
 	for(int i=0; i<100; i++){
 		int str1 = (symTable[scope][i].itemName == itemName);
 		if( str1 == 0){
-			return 1; // found the ID in the table
+			return 1; 
 		}
 	}
 	return 0;
@@ -200,7 +165,7 @@ int findID(char itemName[50], int scope){
 	for(int i=0; i<100; i++){
 		int str1 = strcmp(symTable[scope][i].itemName, itemName);
 		if( str1 == 0){
-			return i + c; // found the ID in the table
+			return i + c; 
 		}
 	}
 	return -1;
@@ -246,18 +211,7 @@ int getParamNum(int scope){
 int compareTypes(string itemName1, string itemName2, char scope[50]){
 	printf("\n-------------------------");
 	printf("\n Compare Types: %s %s %s \n", itemName1, itemName2, scope);
-	/*
-	const char* idType1 = getVariableType(itemName1, scope);
-	const char* idType2 = getVariableType(itemName2, scope);
-
-	printf("%s = %s\n", idType1, idType2);
-
-	int typeMatch = strcmp(idType1, idType2);
-	if(typeMatch == 0){
-		return 1;
-	}
-	else return 0;
-	*/
+	
 }
 
 

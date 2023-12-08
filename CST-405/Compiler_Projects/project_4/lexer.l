@@ -1,5 +1,5 @@
 /*
-Updated the lexer
+Update to  lexer
 */
 
 %option noyywrap
@@ -27,6 +27,9 @@ ID          {letter}({letter}|{digit})*
 delim       [ \t\n]
 NUMBER      {digit}+(\.{digit}+)?(E[+\-]?(digit)+)?
 ws          {delim}+
+quote 		[\"]
+StringPart  [:]
+STRING		{quote}+({ID}({ID}|{StringPart})*)+{quote}
 
 %%
 
@@ -66,6 +69,27 @@ ws          {delim}+
 			yylval.string = strdup(yytext); 
 			return WRITELN;
 		}
+		
+"if"	{words++; chars += strlen(yytext);
+			printf("%s : KEYWORD: IF\n", yytext);
+			yylval.string = strdup(yytext); 
+			return IF;
+		}
+
+"else"	{words++; chars += strlen(yytext);
+			printf("%s : KEYWORD: ELSE\n", yytext);
+			yylval.string = strdup(yytext); 
+			return ELSE;
+		}
+
+"while"	{words++; chars += strlen(yytext);
+			printf("%s : KEYWORD: WHILE\n", yytext);
+			yylval.string = strdup(yytext); 
+			return WHILE;
+		}
+
+		
+
 
 {boolean}
 
@@ -79,6 +103,12 @@ ws          {delim}+
 			  printf("%s : NUMBER\n",yytext);
 			  yylval.number = atoi(strdup(yytext)); 
 			  return NUMBER;
+			}
+
+{STRING}	{words++; chars += strlen(yytext);
+			  printf("%s : STRING\n",yytext);
+			  yylval.string = strdup(yytext); 
+			  return STRING;
 			}
 			
 ";"		{chars++;
@@ -159,6 +189,42 @@ ws          {delim}+
 		  return COMMA;
 		}
 		
+"<"		{chars++;
+		  printf("%s : LESSTHN\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return LESSTHN;
+		}
+		
+">"		{chars++;
+		  printf("%s : GRTRTHN\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return GRTRTHN;
+		}
+		
+"<="	{chars++;
+		  printf("%s : LESSTHNEQ\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return LESSTHNEQ;
+		}
+		
+">="	{chars++;
+		  printf("%s : GRTRTHNEQ\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return GRTRTHNEQ;
+		}
+
+"=="	{chars++;
+		  printf("%s : EQEQ\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return EQEQ;
+		}
+		
+"!="	{chars++;
+		  printf("%s : NOTEQ\n", yytext);
+		  yylval.string = strdup(yytext); 
+		  return NOTEQ;
+		}
+	
 [\n]	{lines++; chars=0;}
 [ \t]	{chars++;}
 .		{chars++;

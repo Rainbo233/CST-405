@@ -1,12 +1,4 @@
-/*
-Arrays
-local vars
-functions
-Read
-WriteLn
-
-
-*/
+// file to generate the assembly code in .asm file and show mips in terminal
 
 
 #pragma once
@@ -25,7 +17,6 @@ void openASMFile(){
     ASM << ".data\n";
     ASM << "newline: .asciiz \"\\n\"\n";
     ASM << ".text\n";
-    // ASM << "main:\n";
     ASM << "#---\n\n";
 }
 
@@ -33,8 +24,7 @@ void closeASMFile(){
 
     ASM << "\n#---\n";
     ASM << "# FINISHED\n\n";
-    //ASM << "li $v0,1 # call code for terminate\n";
-    //ASM << "syscall # system call\n";
+  
     ASM << "li $v0,10 # call code\n";
     ASM << "syscall # system call\n";
     ASM << ".end main\n";

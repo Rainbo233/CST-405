@@ -1,0 +1,18 @@
+int addValue(int num1, int num2){
+     int result;
+     result = num1 + num2;
+     return result;
+}
+int main(){
+     int x;
+     char y;
+     int result;
+     x = 30;
+     while (x > 0){
+          result = addValue(x, -5);
+          x = 5 - x;
+          writeLn;
+          write "result:";
+          write result;
+     }
+}
