@@ -1,4 +1,4 @@
-the project 4 compiler is in folder Project_2
+the project 4 compiler
 to run compiler in terminal
 
 $ make clean
