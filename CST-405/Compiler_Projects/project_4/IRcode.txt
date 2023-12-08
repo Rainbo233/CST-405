@@ -1,0 +1,31 @@
+
+addValue:
+T1 = a0
+T2 = a1
+
+T9 = T2 + T1
+T3 = T9
+RETURN T3
+
+
+main:
+T4 = 30
+whileStart0:
+bgt T4, 0, whileCode0
+b whileEnd0
+whileCode0:
+a0 = T4
+a1 = T0
+jal addValue
+T6 = v0
+
+T9 = T4 - 5
+T4 = T9
+
+WRITELN
+
+!"result:"
+WRITE out_string0
+WRITE T6
+b whileStart0
+whileEnd0:
