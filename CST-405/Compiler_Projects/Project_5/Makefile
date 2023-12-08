@@ -14,11 +14,13 @@ parser.tab.c parser.tab.h:	parser.y
 lex.yy.c: lexer.l parser.tab.h
 	flex lexer.l
 
-parser: lex.yy.c parser.tab.c parser.tab.h symbolTable.h AST.h
+parser: lex.yy.c parser.tab.c parser.tab.h SymbolTable.h AST.h
 	g++ -o parser parser.tab.c lex.yy.c
-	./parser testProg.cmm
+	./parser Test.cmm
 
 clean:
 	rm -f parser lexer parser.tab.c lex.yy.c parser.tab.h parser.output
 	rm -f parser lexer parser.gv parser.html parser.ps parser.xml lexer_standalone
+	> IRcode.txt
+	> final.asm
 	ls -l

@@ -5,7 +5,7 @@
 #include <iostream>
 #include "IRcode.h"
 
-#include "symbolTable.h"
+#include "SymbolTable.h"
 using namespace std;
 // Global variables
 int scope = 0;

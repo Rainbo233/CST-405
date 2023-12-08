@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "semantic.h"
+#include "Semantic.h"
 using namespace std;
 
 // Define the structure for an entry in the symbol table

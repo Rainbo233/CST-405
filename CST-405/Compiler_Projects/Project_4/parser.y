@@ -9,11 +9,11 @@
 #include <chrono>
 #include <sys/time.h>
 
-#include "symbolTable.h"
+#include "SymbolTable.h"
 #include "AST.h"
 #include "IRcode.h"
 #include "CodeGen.h"
-#include "semantic.h"
+#include "Semantic.h"
 
 BinTree AST;  // Declaration of an Abstract Syntax Tree object
 
